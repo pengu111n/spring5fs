@@ -1,28 +1,25 @@
 package config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-import spring.Client;
-import spring.Client2;
-
+import aspect.ExeTimeAspect;
+import chap07.Calculator;
+import chap07.RecCalculator;
 
 @Configuration
+@EnableAspectJAutoProxy
 public class AppCtx {
-	
 	@Bean
-	public Client client() {
-		Client client = new Client();
-		client.setHost("host");
-		return client;
+	public ExeTimeAspect exeTimeAspect() {
+		return new ExeTimeAspect();
 	}
 	
-	
-	@Bean(initMethod = "connect", destroyMethod = "destroy")
-	public Client2 client2() {
-		Client2 client = new Client2();
-		client.setHost("host");
-		return client;
+	@Bean
+	public Calculator calculator() {
+		return new RecCalculator(); 
+			
+			
 	}
 }
