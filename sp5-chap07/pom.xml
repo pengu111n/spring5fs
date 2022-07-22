@@ -3,8 +3,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>sp5</groupId>
-	<artifactId>sp5-chap06</artifactId>
-	<name>sp5-chap06</name>
+	<artifactId>sp5-chap07</artifactId>
+	<name>sp5-chap07</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
