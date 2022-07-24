@@ -2,6 +2,8 @@ package spring;
 
 import java.time.LocalDateTime;
 
+import org.springframework.transaction.annotation.Transactional;
+
 public class Member {
 
 	private Long id;
@@ -42,6 +44,7 @@ public class Member {
 		return registerDateTime;
 	}
 
+	@Transactional
 	public void changePassword(String oldPassword, String newPassword) {
 		if (!password.equals(oldPassword))
 			throw new WrongIdPasswordException();

@@ -1,31 +1,54 @@
 package config;
 
+
+
+import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import aspect.ExeTimeAspect;
-import chap07.Calculator;
-import chap07.RecCalculator;
+import spring.ChangePasswordService;
+import spring.MemberDao;
 
 @Configuration
-@EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableTransactionManagement
 public class AppCtx {
-	@Bean
-	public ExeTimeAspect exeTimeAspect() {
-		return new ExeTimeAspect();
+	
+	@Bean(destroyMethod = "close")
+	public DataSource dataSource() {
+		DataSource ds = new DataSource();
+		ds.setDriverClassName("com.mysql.jdbc.Driver");
+		ds.setUrl("jdbc:mysql://localhost/spring5fs?characterEncoding=utf8");
+		ds.setUsername("spring5");
+		ds.setPassword("spring5");
+		ds.setInitialSize(2);
+		ds.setMaxActive(10);
+		ds.setMaxIdle(10);
+		ds.setTestWhileIdle(true);
+		ds.setMinEvictableIdleTimeMillis(60000*3);
+		ds.setTimeBetweenEvictionRunsMillis(10*1000);
+		return ds;
+		
 	}
 	
-	// 설정 클래스
-	// AOP 적용사 RecCalculator가 상속받은 Calculator 인터페이스를 이용해서 프록시 생성
 	@Bean
-	public Calculator calculator() {
-		return new RecCalculator(); 
-						
+	public MemberDao memberDao() {
+		return new MemberDao(dataSource());
 	}
 	
-	// 자바 코드:
-	//"calculator" 빈의 실제 타입은 Calculator를 상속한 프록시 타입이므로
-	//RecCalculator로 타입 변환을 할수 없기 때문에 익셉션 발생
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager tm = new DataSourceTransactionManager();
+		tm.setDataSource(dataSource());
+		return tm;
+	}
 	
+	@Bean
+	public ChangePasswordService changePwdSvc() {
+		ChangePasswordService pwdSvc = new ChangePasswordService();
+		pwdSvc.setMemberDao(memberDao());
+		return pwdSvc;
+	}
 }
