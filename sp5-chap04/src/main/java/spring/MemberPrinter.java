@@ -4,9 +4,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 public class MemberPrinter {
-	@Autowired(required = false)
+//	@Autowired(required = false)
 	private DateTimeFormatter dateTimeFormatter;
 	
 	public MemberPrinter() {
@@ -23,10 +24,10 @@ public class MemberPrinter {
 		}
 	}
 
-	@Autowired(required = false)
-	public void setDateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
-		this.dateTimeFormatter = dateTimeFormatter;
-	}
+//	@Autowired(required = false)
+//	public void setDateTimeFormatter(DateTimeFormatter dateTimeFormatter) {
+//		this.dateTimeFormatter = dateTimeFormatter;
+//	}
 
 		
 //	@Autowired
@@ -38,10 +39,10 @@ public class MemberPrinter {
 //		}
 //	}
 	
-//	@Autowired
-//	public void setDateTimeFormatter(@Nullable DateTimeFormatter dateTimeFormatter) {
-//		this.dateTimeFormatter = dateTimeFormatter;
-//	}
+	@Autowired
+	public void setDateTimeFormatter(@Nullable DateTimeFormatter dateTimeFormatter) {
+		this.dateTimeFormatter = dateTimeFormatter;
+	}
 	
 	
 }

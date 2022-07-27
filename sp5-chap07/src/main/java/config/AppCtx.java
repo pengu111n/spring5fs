@@ -17,7 +17,7 @@ public class AppCtx {
 	}
 	
 	// 설정 클래스
-	// AOP 적용사 RecCalculator가 상속받은 Calculator 인터페이스를 이용해서 프록시 생성
+	// AOP 적용시 RecCalculator가 상속받은 Calculator 인터페이스를 이용해서 프록시 생성
 	@Bean
 	public Calculator calculator() {
 		return new RecCalculator(); 
